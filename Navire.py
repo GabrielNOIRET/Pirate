@@ -85,4 +85,4 @@ class Navire(object):
 
 nautilus = Navire("Nautilus", 100,"Rabat")
 nautilus.initPosBateau()
-nautilus.bougerBateau()
+
