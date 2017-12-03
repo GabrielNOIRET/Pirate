@@ -58,11 +58,11 @@ class Navire(object):
             print "On va bouger le bateau"
             if portEscale in ("1","2","3"):
                 creationRoute(nomdest[int(portEscale)-1])
+                coutdest = int(coutdest[int(portEscale) - 1])*10
                 portEscale = nomdest[int(portEscale)-1]
-                coutEscale = coutdest[int(portEscale)-1]
                 requete_nvpos = """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + portEscale + """') WHERE nom = 'Nautilus';"""
                 cur.execute(requete_nvpos)
-                print "La nouvelle position du bateau est", nomdest[int(portEscale)-1]
+                print "La nouvelle position du bateau est", portEscale
                 saisie = True
             elif portEscale in nomdest:
                 creationRoute(portEscale)
@@ -71,17 +71,16 @@ class Navire(object):
                         coutdest = int(coutdest[i])*10
                 requete_nvpos = """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + portEscale + """') WHERE nom = 'Nautilus';"""
                 cur.execute(requete_nvpos)
-                print "La nouvelle position du bateau est", portEscale
                 saisie = True
             else:
                 propositionDestination()
                 print "Ressaisie la destination"
                 saisie = False
 
-
-
-
-
+        def coutdestination(coutdest):
+            self.argent -= coutdest
+            print "Vous êtes arrivé a", portEscale, ", il vous reste,",self.argent, "pieces d'or"
+        coutdestination(coutdest)
 
 
 nautilus = Navire("Nautilus", 100,"Rabat")
