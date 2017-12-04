@@ -68,6 +68,7 @@ class Navire(object):
                 creationRoute(portEscale)
                 for i in range(len(nomdest)):
                     if portEscale == nomdest[i]:
+                        print int(coutdest[i])*10
                         coutdest = int(coutdest[i])*10
                 requete_nvpos = """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + portEscale + """') WHERE nom = 'Nautilus';"""
                 cur.execute(requete_nvpos)
