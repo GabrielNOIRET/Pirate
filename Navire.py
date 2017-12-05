@@ -18,7 +18,7 @@ class Navire(object):
         self.argent = a
         self.portDepart = pd
 
-    def initPosBateau(self):
+    def initPositionBateau(self):
         print "On va initialiser la position du bateau"
         cur.execute("""UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '"""+ self.portDepart +"""') WHERE nom = 'Nautilus';""")
 
@@ -84,6 +84,6 @@ class Navire(object):
         coutdestination(coutdest)
 
 
-nautilus = Navire("Nautilus", 100,"Rabat")
-nautilus.initPosBateau()
+nauti = Navire("Nautilus", 100, "Rabat")
+nauti.initPositionBateau()
 
