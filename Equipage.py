@@ -1,6 +1,6 @@
-from Navire import Navire
+class Equipage(object):
+    def __init__(self, listeMarins):
+        self.listeMarins = listeMarins
 
-class Equipage(Navire):
-
-    def __init__(self, marins):
-        self.marins = marins
+    def ajoutMarin(self, marinChoisi):
+        self.listeMarins.append(marinChoisi)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Importation des bibliothèques
 import psycopg2
+import Jeu
 
 
 try:
@@ -58,6 +59,7 @@ class Navire(object):
         while saisie == False:
             portEscale = raw_input("Quel est le prochain port :")
             portEscale = portEscale.replace(' ','')
+
             print "On va bouger le bateau"
             if portEscale in ("1","2","3"):
                 creationRoute(nomdest[int(portEscale)-1])
@@ -66,6 +68,9 @@ class Navire(object):
                 requete_nvpos = """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + portEscale + """') WHERE nom = 'Nautilus';"""
                 cur.execute(requete_nvpos)
                 print "La nouvelle position du bateau est", portEscale
+                lieuArrive = portEscale
+                if lieuArrive == 'Istanbul':
+                    Jeu.arriveeIstanbul()
                 saisie = True
             elif portEscale in nomdest:
                 creationRoute(portEscale)
@@ -87,7 +92,7 @@ class Navire(object):
         coutdestination(coutdest)
 
 
-nautilus = Navire("Nautilus", 100,"Rabat")
+nautilus = Navire("Nautilus", 100000,"Rabat")
 nautilus.initPosBateau()
 
 
