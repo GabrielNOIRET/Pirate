@@ -2,6 +2,7 @@
 # Importation des bibliothèques
 import psycopg2
 import Jeu
+import Equipage
 
 
 try:
@@ -14,10 +15,11 @@ cur = conn.cursor()
 
 
 class Navire(object):
-    def __init__(self, n, a, pd):
+    def __init__(self, n, a, pd, listeMarins):
         self.nom = n
         self.argent = a
         self.portDepart = pd
+        self.equipage = Equipage(listeMarins)
 
     def initPosBateau(self):
         print "On va initialiser la position du bateau"
@@ -91,9 +93,6 @@ class Navire(object):
             print "Vous êtes arrivé a", portEscale, ", il vous reste,",self.argent, "pieces d'or"
         coutdestination(coutdest)
 
-
-nautilus = Navire("Nautilus", 100000,"Rabat")
-nautilus.initPosBateau()
 
 
 

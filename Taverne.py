@@ -3,9 +3,6 @@ import random
 import Navigateur as N
 import Equipage as E
 
-nomDePirate = ["Bonny", "Jack", "Teach", "Drake", "Morgan", "Nau", "Read"]
-prenomDePirate = ["Anne", "Calico", "Edward", "Francis", "Henry", "Jean", "Mary"]
-
 class Taverne(object):
     def __init__(self, nomDePirate, prenomDePirate):
         self.listDeNoms = nomDePirate
@@ -27,10 +24,3 @@ def creationListePirateAChoisir(taverne, nbMarins):
     return listePirateAChoisir  # On retourne equipage vers listepirate
 
 
-taverneAPirate = Taverne(nomDePirate, prenomDePirate)
-listePirate = creationListePirateAChoisir(taverneAPirate, 3)
-
-for i in listePirate:
-    print i.nom, i.argent, i.force
-
-equipage = E.Equipage(N.Navigateur("Blabla",10,10))
