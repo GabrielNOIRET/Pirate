@@ -7,10 +7,16 @@ class Equipage(object):
         self.listeMarins.append(marinChoisi)
 
     def afficheMarins(self):  # Fonction qui affiche les noms des Marins dans l'équipage
-        self.nbMarin = 0
-        for i in Equipage.listeMarins:
-            self.nbMarin += 1
-            print "L'équipage est composé de", self.nbMarin, "pirates : "
-            print "-", i.nom
+        print "L'équipage est composé de", len(self.listeMarins), "pirates : "
+        for marin in self.listeMarins:
+            print "-", marin.nom
+
+    def calculForce(self):
+        forceTotale = 0
+        for marin in self.listeMarins:
+            forceTotale += marin.force
+        return forceTotale
+
+
 
 

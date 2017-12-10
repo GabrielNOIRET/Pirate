@@ -7,5 +7,5 @@ class Navigateur(object):
         self.nbYeux = 2
         self.nbBras = 2
         self.nbJambes = 2
-        self.argent = argent
+        self.prix = argent
         self.force = force
