@@ -9,7 +9,7 @@ class Taverne(object):
         self.listDePrenoms = prenomDePirate
 
     def debaucher(self):
-        prixdupirate = random.randint(1, 10)
+        prixdupirate = random.randint(50, 500)
         force = prixdupirate * 1.5
         nomPrenom = " ".join([self.listDeNoms[random.randint(0, len(self.listDeNoms) - 1)],
                               self.listDePrenoms[random.randint(0, len(self.listDePrenoms) - 1)]])

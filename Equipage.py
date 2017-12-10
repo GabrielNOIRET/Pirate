@@ -11,6 +11,12 @@ class Equipage(object):
         for marin in self.listeMarins:
             print "-", marin.nom
 
+    def calculForce(self):
+        forceTotale = 0
+        for marin in self.listeMarins:
+            forceTotale += marin.force
+        return forceTotale
+
 
 
 
