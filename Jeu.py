@@ -35,10 +35,13 @@ def combat():
 
 def action():
     numAction = random.randint(0, 10)
+
     if numAction < 3:
         combat()
+
     elif numAction == 3:
         print "Sirène"
+
     elif numAction == 4:
         print "Tempête"
 
