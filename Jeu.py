@@ -3,6 +3,7 @@ import Navire as B
 import Equipage as E
 import Taverne as T
 import Navigateur as N
+import random
 
 def finPerdu():
     print "Vous avez perdu"
@@ -13,18 +14,50 @@ def finGagnee():
     exit(0)
 
 def arriveeIstanbul():
-    print "Vous etes arrivé a Istanbul"
+    print "Vous êtes arrivé a Istanbul"
     finGagnee()
+
+
+def combat():
+    print "--------- Combat ! ---------"
+    forceEnnemi = ((random.randint(-100, 100)) * nautilus.equipage.calculForce() / 100) + nautilus.equipage.calculForce()
+    chanceEnnemi = (100 * forceEnnemi) / (nautilus.equipage.calculForce() + forceEnnemi)
+    print "La force de notre ennemi est de", forceEnnemi, ". Notre force est de", nautilus.equipage.calculForce()
+    choixCombat = raw_input("Voulez-vous combattre ? (y/n)")
+    if choixCombat == "y":
+        if random.randint(0,100) > chanceEnnemi:
+            butin = random.randint(10, 200)
+            print "Gagné!, vous remportez", butin,"pièces d'or"
+            nautilus.argent += butin
+        else:
+            print "Perdu"
+            #for pertes in range(random.randint(0, len(nautilus.equipage.listeMarins))):
+
+def action():
+    numAction = random.randint(0, 10)
+    if numAction < 3:
+        combat()
+    elif numAction == 3:
+        print "Sirène"
+    elif numAction == 4:
+        print "Tempête"
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
 
     #listAccident = ["bras", "jambe", "yeux"]
-    nomDePirate = ["Bonny", "Jack", "Teach", "Drake", "Morgan", "Nau", "Read"]
-    prenomDePirate = ["Anne", "Calico", "Edward", "Francis", "Henry", "Jean", "Mary"]
+    nomDePirate = ["Bonny", "Jack", "Teach", "Collaart", "Morgan", "Nau", "Read", "Riskinner", "Oxenham", "Compaan", "Cavendish", "Mainwaring", "Essex", "Morris", "Braziliano", "Sawkins", "Anstis", "Culliford", "Henríquez", "Neumann"]
+    prenomDePirate = ["William", "Calico", "Edward", "John", "Henry", "Jean", "Mary", "James", "Isaac", "Jan", "Vincenzo", "Jacquotte", "Cornelius", "George", "Thomas", "Lars", "Miguel", "Edward", "Christopher", "Mary", "Flora"]
 
 
 
-    nomCapitaine = raw_input("Choisi votre nom de capitaine : ")
+    nomCapitaine = raw_input("Vous pouvez choisir le nom de votre capitaine : ")
     capitaine = N.Navigateur(nomCapitaine, 10, 12)
     debutListeMarins = [capitaine]
     nautilus = B.Navire("Nautilus", 1000, "Rabat", debutListeMarins)
@@ -43,8 +76,9 @@ if __name__ == "__main__":
     #for index, pirate in enumerate(listePirate):
      #   print index+1, ".", pirate.nom, "Cout: ", pirate.argent, "Force: ", pirate.force
 
+
     def visiterTaverne ():
-        print "Il vous reste :",nautilus.argent,"pieces d'or"
+        print "Il vous reste :",nautilus.argent,"pièces d'or"
         taverneAPirate = T.Taverne(nomDePirate, prenomDePirate)
         listePirate = T.creationListePirateAChoisir(taverneAPirate, 3)
 
@@ -58,7 +92,7 @@ if __name__ == "__main__":
 
                 pirateChoisi = listePirate[int(choixPirate) - 1]
                 if nautilus.argent - pirateChoisi.prix < 0:
-                    print "Ce pirate est trop cher !"
+                    print "Ce pirate est trop cher pour vous !"
                     selectionAchatPirate()
                 else:
                     nautilus.argent -= pirateChoisi.prix
@@ -66,7 +100,7 @@ if __name__ == "__main__":
                     nautilus.equipage.afficheMarins()
 
         selectionAchatPirate()
-        print "on quitte la taverne"
+        print "On quitte la taverne"
 
     """""
     visiterTaverne()
@@ -90,8 +124,8 @@ if __name__ == "__main__":
         print "================================"
         nautilus.bougePosition()
         print "Bienvenue à ", nautilus.portActuel
-        choixVisite = raw_input("Voulez-vous visiter la taverne ? (y/n)")
+        choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
         if choixVisite == "y":
             visiterTaverne()
 
-    print "on est arrivé"
+    print "On est arrivé à bon port"

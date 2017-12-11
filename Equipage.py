@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import random
+
 class Equipage(object):
     def __init__(self, listeMarins):
         self.listeMarins = listeMarins
@@ -16,6 +18,12 @@ class Equipage(object):
         for marin in self.listeMarins:
             forceTotale += marin.force
         return forceTotale
+
+
+
+
+
+
 
 
 
