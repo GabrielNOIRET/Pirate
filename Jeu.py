@@ -18,26 +18,13 @@ def arriveeIstanbul():
     finGagnee()
 
 
-def combat():
-    print "--------- Combat ! ---------"
-    forceEnnemi = ((random.randint(-100, 100)) * nautilus.equipage.calculForce() / 100) + nautilus.equipage.calculForce()
-    chanceEnnemi = (100 * forceEnnemi) / (nautilus.equipage.calculForce() + forceEnnemi)
-    print "La force de notre ennemi est de", forceEnnemi, ". Notre force est de", nautilus.equipage.calculForce()
-    choixCombat = raw_input("Voulez-vous combattre ? (y/n)")
-    if choixCombat == "y":
-        if random.randint(0,100) > chanceEnnemi:
-            butin = random.randint(10, 200)
-            print "Gagné!, vous remportez", butin,"pièces d'or"
-            nautilus.argent += butin
-        else:
-            print "Perdu"
-            #for pertes in range(random.randint(0, len(nautilus.equipage.listeMarins))):
 
-def action():
+def action(leNavire):
     numAction = random.randint(0, 10)
+    numAction = 0
 
     if numAction < 3:
-        combat()
+        combat(leNavire)
 
     elif numAction == 3:
         print "Sirène"
@@ -47,6 +34,25 @@ def action():
 
 
 
+
+def combat(unNavire):
+    print "--------- Combat ! ---------"
+    print unNavire.argent
+
+    forceNavire = unNavire.equipage.calculForce()
+    forceEnnemi = ((random.randint(-100, 100)) * forceNavire / 100) + forceNavire
+    chanceEnnemi = (100 * forceEnnemi) / (forceNavire + forceEnnemi)
+    print "La force de notre ennemi est de", forceEnnemi, ". Notre force est de", forceNavire
+    choixCombat = raw_input("Voulez-vous combattre ? (y/n)")
+    if choixCombat == "y":
+        if random.randint(0,100) > chanceEnnemi:
+            butin = random.randint(10, 200)
+            print "Gagné!, vous remportez", butin,"pièces d'or"
+            unNavire.argent += butin
+        else:
+            print "Perdu"
+            #for pertes in range(random.randint(0, len(nautilus.equipage.listeMarins))):
+    print unNavire.argent
 
 
 

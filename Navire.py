@@ -75,7 +75,7 @@ class Navire(object):
         while saisie == False:
             portEscale = raw_input("Quel est le prochain port :")
             portEscale = portEscale.replace(' ','')
-            Jeu.action()
+            Jeu.action(self)
             print "On va bouger le bateau"
             if portEscale in ("1","2","3"):
                 creationRoute(nomdest[int(portEscale)-1])

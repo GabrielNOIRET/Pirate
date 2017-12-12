@@ -19,6 +19,18 @@ class Equipage(object):
             forceTotale += marin.force
         return forceTotale
 
+    def endommage(self):
+        listeMarinsVivants = []
+        for marin in self.listeMarins:
+            marin.blesse()
+            if marin.vivant == True:
+                listeMarinsVivants.append(marin)
+
+        self.listeMarins = listeMarinsVivants
+
+
+
+
 
 
 
