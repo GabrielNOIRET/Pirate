@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Importation des bibliothèques
+# Importation des bibliothèques fichiers
 import psycopg2
 import Jeu
 import Equipage as E
@@ -34,7 +34,7 @@ class Navire(object):
 
     def bougePosition(self):
         #self.equipage.calculForce()
-        print "force equipage :",self.equipage.calculForce()
+        print "La force du présent équipage est :",self.equipage.calculForce()
         # Voir les 3 ports les plus proches
         requete = """SELECT "City", ST_Distance(geom, (SELECT geom FROM exo2016.bateaux WHERE nom = 'Nautilus')) AS distance FROM exo2016.ports ORDER BY distance ASC LIMIT 3 OFFSET 1;"""
         cur.execute(requete)
@@ -52,7 +52,7 @@ class Navire(object):
 
             for row in rows:
                 nbl += 1
-                print nbl,"- Pour aller à", row[0], ', ça va couter', int(10 * row[1]), "pieces d'or"
+                print nbl,"- Pour aller à", row[0], ', vous devrez déboursser', int(10 * row[1]), "pièces d'or"
                 nomdest.append(row[0])
                 coutdest.append(row[1])
 
@@ -73,7 +73,7 @@ class Navire(object):
 
         saisie = False
         while saisie == False:
-            portEscale = raw_input("Quel est le prochain port :")
+            portEscale = raw_input("Quel est le prochain port de destination ? :")
             portEscale = portEscale.replace(' ','')
             Jeu.action(self)
             print "On va bouger le bateau"

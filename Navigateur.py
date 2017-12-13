@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Importation des bibliothèques fichiers
 import random
 
 class Navigateur(object):

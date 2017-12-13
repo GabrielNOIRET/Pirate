@@ -1,4 +1,5 @@
 # coding=utf-8
+# Importation des bibliothèques fichiers
 import Navire as B
 import Equipage as E
 import Taverne as T
@@ -36,6 +37,7 @@ def action(leNavire):
 
 
 def combat(unNavire):
+    print "Nous voici en route mais malheureusement sur notre chemin se trouve un pavillon ennemi "
     print "--------- Combat ! ---------"
     print unNavire.argent
 
@@ -50,10 +52,9 @@ def combat(unNavire):
             print "Gagné!, vous remportez", butin,"pièces d'or"
             unNavire.argent += butin
         else:
-            print "Perdu"
+            print "Perdu..."
             #for pertes in range(random.randint(0, len(nautilus.equipage.listeMarins))):
     print unNavire.argent
-
 
 
 
@@ -65,8 +66,8 @@ if __name__ == "__main__":
     prenomDePirate = ["William", "Calico", "Edward", "John", "Henry", "Jean", "Mary", "James", "Isaac", "Jan", "Vincenzo", "Jacquotte", "Cornelius", "George", "Thomas", "Lars", "Miguel", "Edward", "Christopher", "Mary", "Flora"]
 
 
-
-    nomCapitaine = raw_input("Vous pouvez choisir le nom de votre capitaine : ")
+    print "Bien le bonjour à toi jeune Corsaire, nous avons besoin de toi pour récupérer les diamants pour se faire tu vas devoir composer un équipage et te rendre à Istambul !"
+    nomCapitaine = raw_input("Commence par choisir le nom de ton capitaine : ")
     capitaine = N.Navigateur(nomCapitaine, 10, 12)
     debutListeMarins = [capitaine]
     nautilus = B.Navire("Nautilus", 1000, "Rabat", debutListeMarins)
