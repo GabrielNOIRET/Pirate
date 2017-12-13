@@ -2,7 +2,10 @@
 # Importation des bibliothèques fichiers
 import random
 
+
+# Création de la classe Navigateur
 class Navigateur(object):
+    # Définition du constructeur
     def __init__(self, nom, argent, force):
         self.nom = nom
         self.tete = 1
@@ -13,11 +16,16 @@ class Navigateur(object):
         self.force = force
         self.vivant = True
 
+
+# Création de la fonction blesse.
+# Fonction permettant de définir l'ordre de perte de menbres des pirates pour les combats
     def blesse(self):
 
+        # Condition sur un entier aléatoire qui va ou non supprimer la tête
          if 1 < random.randint(0, 10):
              self.tete = 0
 
+        # Condition sur l'ordre de pertes des membres
          else:
 
              if self.nbJambes > 0:
@@ -29,6 +37,7 @@ class Navigateur(object):
              elif self.nbYeux > 0:
                  self.nbYeux = self.nbYeux - 1
 
-
+        # Si un marin n'a plus de tête ou plus ses deux yeux alors il meurt
          if self.tete == 0 or self.nbYeux == 0:
              self.vivant = False
+         print "frb"

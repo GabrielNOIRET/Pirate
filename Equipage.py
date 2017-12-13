@@ -2,32 +2,42 @@
 # Importation des bibliothèques fichiers
 import random
 
+
+# Création de la classe Equipage
 class Equipage(object):
+    # Définition du constructeur
     def __init__(self, listeMarins):
         self.listeMarins = listeMarins
 
+    # Fonction qui rajoute à la liste de la listeMarins le marin choisi par l'utilisateur
     def ajoutMarin(self, marinChoisi):
         self.listeMarins.append(marinChoisi)
 
-    def afficheMarins(self):  # Fonction qui affiche les noms des Marins dans l'équipage
+    # Fonction qui affiche les noms des Marins dans l'équipage
+    def afficheMarins(self):
         print "L'équipage est composé de", len(self.listeMarins), "pirates : "
         for marin in self.listeMarins:
             print "-", marin.nom
 
+    # Fonction qui calcule la force totale des marins
     def calculForce(self):
         forceTotale = 0
         for marin in self.listeMarins:
             forceTotale += marin.force
         return forceTotale
 
+    # Fonction qui actualise la liste des marins aprés un évènement (combat ou tempête)
     def endommage(self):
         listeMarinsVivants = []
         for marin in self.listeMarins:
             marin.blesse()
+            # Condition si les marins sont toujours vivants
             if marin.vivant == True:
                 listeMarinsVivants.append(marin)
 
+        # Remplacement de la liste des marins avec la liste des marins toujours vivants
         self.listeMarins = listeMarinsVivants
+
 
 
 

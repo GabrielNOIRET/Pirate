@@ -6,20 +6,8 @@ import Taverne as T
 import Navigateur as N
 import random
 
-def finPerdu():
-    print "Vous avez perdu"
-    exit(0)
 
-def finGagnee():
-    print "Vous avez gagné"
-    exit(0)
-
-def arriveeIstanbul():
-    print "Vous êtes arrivé a Istanbul"
-    finGagnee()
-
-
-
+# Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Pas d'évènement)
 def action(leNavire):
     numAction = random.randint(0, 10)
     numAction = 0
@@ -35,26 +23,43 @@ def action(leNavire):
 
 
 
-
+# Fonction qui fait un combat
 def combat(unNavire):
+    print " "
     print "Nous voici en route mais malheureusement sur notre chemin se trouve un pavillon ennemi "
     print "--------- Combat ! ---------"
-    print unNavire.argent
+    print "Vous disposez de",unNavire.argent, "pièces d'or"
 
+    # obtention de la force totale de notre navire
     forceNavire = unNavire.equipage.calculForce()
+    # obtention aléatoire de la force du bateau ennemie par rapport à notre force
     forceEnnemi = ((random.randint(-100, 100)) * forceNavire / 100) + forceNavire
+    # Calcule de la chance de victoire en fonction de notre force et de la force ennemie
+    # (La chance de victoire repose le hasard d'avoir plus ou moins de la chance de victoire, il s'agit d'une sorte de pari)
     chanceEnnemi = (100 * forceEnnemi) / (forceNavire + forceEnnemi)
     print "La force de notre ennemi est de", forceEnnemi, ". Notre force est de", forceNavire
+    # Choix de l'utilisateur de combattre ou non
     choixCombat = raw_input("Voulez-vous combattre ? (y/n)")
     if choixCombat == "y":
         if random.randint(0,100) > chanceEnnemi:
             butin = random.randint(10, 200)
-            print "Gagné!, vous remportez", butin,"pièces d'or"
+            print "Gagné!, vous remportez", butin,"pièces d'or. Il vous reste", unNavire.argent, "pièces d'or"
+            print "Aprés un combat acharné, continuons notre périble..."
+            #TODO ajouter argent gagné
             unNavire.argent += butin
+            #TODO Couper des membres!
         else:
             print "Perdu..."
-            #for pertes in range(random.randint(0, len(nautilus.equipage.listeMarins))):
-    print unNavire.argent
+            #nbMarins = len(unNavire.equipage.listeMarins)
+            #TODO Faire appel fonction blesse
+            #blesse(unNavire.equipage.listeMarins[random.randint(0,nbMarins)])
+
+
+
+    else:
+        print "Froussard, on continue la route !"
+
+
 
 
 
@@ -88,7 +93,7 @@ if __name__ == "__main__":
 
 
     def visiterTaverne ():
-        print "Il vous reste :",nautilus.argent,"pièces d'or"
+        print "Vous disposez de ",nautilus.argent,"pièces d'or"
         taverneAPirate = T.Taverne(nomDePirate, prenomDePirate)
         listePirate = T.creationListePirateAChoisir(taverneAPirate, 3)
 
@@ -120,20 +125,17 @@ if __name__ == "__main__":
     """""
 
 
-
-    """
-    while B.nautilus.argent > -1:
-        B.nautilus.bougerBateau()
-    else:
-        finPerdu()
-       print "Vous n'avez plus d'argent"
-    """
-
     nautilus.initPosition()
     while nautilus.portActuel != "Istanbul":
-        print "================================"
+        print " "
+
+        #balbkaddscsc
+
+
+        print "================================> PROCHAIN PORT <=================================="
         nautilus.bougePosition()
-        print "Bienvenue à ", nautilus.portActuel
+        print " "
+        print " \/\/\/\/\/\/     Bienvenue à" , nautilus.portActuel, "    \/\/\/\/\/\/ "
         choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
         if choixVisite == "y":
             visiterTaverne()
