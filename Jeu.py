@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
         print "Voici les pirates disponibles : "
         for index, pirate in enumerate(listePirate):
-            print index + 1, "-", pirate.nom, "(prix: ", pirate.prix, "force: ", pirate.force,")"
+            print index + 1, "-", pirate.nom, "(prix: ", pirate.prix, " force: ", pirate.force,")"
 
         def selectionAchatPirate():
             choixPirate = raw_input("Quel pirate voulez-vous ?(Tapez q pour sortir de la taverne)")
