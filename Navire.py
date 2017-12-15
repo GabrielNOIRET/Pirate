@@ -1,47 +1,6 @@
-# -*- coding: utf-8 -*-
-# Importation des bibliothèques fichiers
-import psycopg2
-import Jeu
+# coding=utf-8
 import Equipage as E
-import random
-
-# Connection et test de la base de données
-try:
-    conn = psycopg2.connect(
-        "dbname='reyman64_cartha' user='reyman64_cartha' host='web564.webfaction.com' password='carthageo'")
-    conn.autocommit = True
-except:
-    print "I am unable to connect to the database"  # Si la base ne se connecte pas
-cur = conn.cursor()
-
-
-# Fonction qui affiche et liste les 3 ports les plus proches
-def propositionDestination():
-    # Voir les 3 ports les plus proches
-    requete = """SELECT "City", ST_Distance(geom, (SELECT geom FROM exo2016.bateaux WHERE nom = 'Nautilus')) AS distance FROM exo2016.ports ORDER BY distance ASC LIMIT 3 OFFSET 1;"""
-    cur.execute(requete)
-    rows = cur.fetchall()
-    nomdest = []
-    coutdest = []
-
-    nbl = 0
-    for row in rows:
-        nbl += 1
-        print nbl, "- Pour aller à", row[0], ', vous devrez déboursser', int(10 * row[1]), "pièces d'or"
-        nomdest.append(row[0])
-        coutdest.append(row[1])
-
-
-# Supprimer ancienne route
-def supprimerRoutes():
-    requete_suproute = """DELETE FROM exo2016.routes WHERE idbinome = '6';"""
-    cur.execute(requete_suproute)
-
-
-# Creation des routes
-def creationRoute(portEscale):
-    requete_creatroute = """INSERT INTO exo2016.routes (id, idbinome, geom) VALUES (DEFAULT, '6', ST_MakeLine((SELECT geom FROM exo2016.bateaux WHERE nom = 'Nautilus'),(SELECT geom FROM exo2016.ports WHERE "City" = '""" + portEscale + """')));"""
-    cur.execute(requete_creatroute)
+import Carte
 
 
 # Création de la classe Navire
@@ -55,26 +14,55 @@ class Navire(object):
 
     # Fonction qui initialise la position du bateau (dans le port de Rabat)
     def initPosition(self):
-        # print "On va initialiser la position du bateau"
-        cur.execute(
-            """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + self.portDepart + """') WHERE nom = 'Nautilus';""")
+        Carte.positionneBateau(self.portDepart)
         self.portActuel = self.portDepart
 
     # Fonction qui met à jour la nouvelle position saisie par l'utilisateur
     def actualisePosition(self, position):
-        # print "On actualise la position du bateau:", position
-        cur.execute(
-            """UPDATE exo2016.bateaux SET geom = (SELECT geom FROM exo2016.ports WHERE "City" = '""" + position + """') WHERE nom = 'Nautilus';""")
+        Carte.positionneBateau(position)
         self.portActuel = position
+
+    def depense(self, montant):
+        argentAvantDepense = self.argent
+        self.argent -= montant
+        message = "Le " + self.nom + " depense " + str(montant) + " pieces !"
+        message += "\nIl en avait " + str(argentAvantDepense) + ", il reste " + str(self.argent) + "."
+        print message
+
+    def gagne(self, montant):
+        argentAvantGain = self.argent
+        self.argent += montant
+        message = "Le " + self.nom + " gagne " + str(montant) + " pieces !"
+        message += "\nIl en avait " + str(argentAvantGain) + ", il reste " + str(self.argent) + "."
+        print message
 
     # Fonction qui propose et met à jour l'emplacement du bateau et de la dernière route
     def bougePosition(self):
 
-        propositionDestination()
 
-        supprimerRoutes()
+        # destinationsPossible = Carte.trouveDestinationsProches()
+        #
+        # message = "Quel est le prochain port de destination ? :"
+        #
+        # for index, destination in enumerate(destinationsPossible):
+        #     message += "\n" + str(index + 1) + ". " + destination["port"] + "\t(" + str(destination["cout"]) + " pieces)"
+        #
+        # choix = raw_input(message)
+        # while choix not in ("1", "2", "3"):
+        #     choix = raw_input("Choix incorrect, tapez 1, 2 ou 3 :")
+        #
+        # destinationChoisie = destinationsPossible[int(choix)-1]
+        #
+        # print destinationChoisie
+
+        # supprimerRoutes()
 
 
+
+
+
+
+        '''
         saisie = False
         while saisie == False:
             portEscale = raw_input("Quel est le prochain port de destination ? :")
@@ -113,3 +101,4 @@ class Navire(object):
         #   self.argent -= int(coutdest)
         #  print "Vous êtes arrivé à", portEscale, ", il vous reste,",self.argent, "pieces d'or"
         # coutdestination(coutdest)
+        '''
