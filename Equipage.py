@@ -13,6 +13,12 @@ class Equipage(object):
     def ajoutMarin(self, marinChoisi):
         self.listeMarins.append(marinChoisi)
 
+    # Fonction qui enlève un marin de la liste au hasard et le retourne
+    def enleveMarinAleatoirement(self):
+        marinEnleve = random.choice(self.listeMarins)
+        self.listeMarins.remove(marinEnleve)
+        return marinEnleve
+
     # Fonction qui affiche les noms des Marins dans l'équipage
     def afficheMarins(self):
         print "L'équipage est composé de", len(self.listeMarins), "pirates : "
@@ -32,7 +38,6 @@ class Equipage(object):
         listeMarinsVivants = []
         for marin in self.listeMarins:
             marin.blesse()
-
 
             # Condition si les marins sont toujours vivants
             if marin.vivant == True:

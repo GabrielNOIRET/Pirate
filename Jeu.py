@@ -8,26 +8,29 @@ import Navigateur as N
 import random
 
 
-# Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Pas d'évènement)
+# Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Avarie, Pas d'évènement)
 def effectueTraverse(navire, destination):
     numAction = random.randint(0, 10)
-    numAction = 4
+    numAction = 3
 
-    if numAction < 3:
+    if numAction in (1, 2):
         combat(navire)
 
     elif numAction == 3:
-        print "Sirène"
+        sirene(navire)
 
     elif numAction == 4:
         destination = tempete(navire)
+
+    elif numAction == 5:
+        destination = avarie(navire)
 
     Carte.supprimerRoutes()
     Carte.creationRoute(destination)
     nautilus.actualisePosition(destination)
 
 
-# Fonction qui fait un combat
+# Fonction qui simule un combat
 def combat(navire):
     print "\nNous voici en route mais malheureusement sur notre chemin se trouve un pavillon ennemi "
     print "--------- Combat ! ---------"
@@ -66,9 +69,18 @@ def combat(navire):
     else:
         print "Froussard, on continue la route !"
 
+# Fonction qui simule une tempete: retourne un port et endommage le bateau
+def sirene(navire):
+    marinPerdu = navire.equipage.enleveMarinAleatoirement()
+    print "~~~~~    Une créature sort de l'eau, c'est une sirène!    ~~~~"
+    print "La voici qui commence à chanter, ajoutant ce charme mysterieux à sa beauté naturelle."
+    print "Vite, vous vous bouchez les oreilles pour ne pas succomber, les marins de votre equipage vous imite."
+    print "Enfin, presque tous car " + marinPerdu.nom + " a déjà sauté dans la mer pour rejoindre la sirène."
+    print "Le pauvre, vous devez l'abandonner à son sort."
+    print "Le navire continue sa route et la sirene disparait après avoir commit son méfait."
 
-
-def tempete (navire):
+# Fonction qui simule une tempete: retourne un port et endommage le bateau
+def tempete(navire):
     print "~~~~~    Il y a une tempête    ~~~~"
     portDeTempete = Carte.portDeTempete()
     #Carte.supprimerRoutes()
@@ -78,9 +90,15 @@ def tempete (navire):
     print "Le navire derive et se retrouve à ", portDeTempete
     return portDeTempete
 
+# Fonction qui simule une avarie: retourne le port de depart
+def avarie(navire):
+    obstacle = random.choice(('un eceuil', 'une baleine', 'un bateau de pecheurs'))
+    print "~~~~~    A peine parti, le navire percute " + obstacle + "!   ~~~~"
+    print "Vous devez rentrer au port pour effectuer des reparations"
+    return navire.portActuel
+
 
 if __name__ == "__main__":
-    #listAccident = ["bras", "jambe", "yeux"]
     nomDePirate = ["Bonny", "Jack", "Teach", "Collaart", "Morgan", "Nau", "Read", "Riskinner", "Oxenham", "Compaan", "Cavendish", "Mainwaring", "Essex", "Morris", "Braziliano", "Sawkins", "Anstis", "Culliford", "Henríquez", "Neumann"]
     prenomDePirate = ["William", "Calico", "Edward", "John", "Henry", "Jean", "Mary", "James", "Isaac", "Jan", "Vincenzo", "Jacquotte", "Cornelius", "George", "Thomas", "Lars", "Miguel", "Edward", "Christopher", "Mary", "Flora"]
     messageDebut = "Bien le bonjour à toi jeune Corsaire, \nJ’espère que tu es en pleine forme car à partir de maintenant tu vas devoir faire tes preuves !!  \nTu es ici pour prendre connaissances de ta mission. Tu dois te rendre à Istambul pour dérober le trésor de Carthégius. \nC’est ici à Rabat que tout va commencer. \nPour débuter, commence par choisir le nom de ton capitaine :"
