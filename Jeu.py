@@ -9,9 +9,9 @@ import random
 
 
 # Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Pas d'évènement)
-def action(navire):
+def effectueTraverse(navire, destination):
     numAction = random.randint(0, 10)
-    #numAction = 0
+    numAction = 4
 
     if numAction < 3:
         combat(navire)
@@ -20,8 +20,11 @@ def action(navire):
         print "Sirène"
 
     elif numAction == 4:
-        tempete(navire)
+        destination = tempete(navire)
 
+    Carte.supprimerRoutes()
+    Carte.creationRoute(destination)
+    nautilus.actualisePosition(destination)
 
 
 # Fonction qui fait un combat
@@ -67,11 +70,16 @@ def combat(navire):
 
 def tempete (navire):
     print "~~~~~    Il y a une tempête    ~~~~"
+    portDeTempete = Carte.portDeTempete()
+    #Carte.supprimerRoutes()
+    #Carte.positionneBateau(portDeTempete)
     navire.equipage.endommage()
+    #TODO  changer texte
+    print "Le navire derive et se retrouve à ", portDeTempete
+    return portDeTempete
 
 
 if __name__ == "__main__":
-
     #listAccident = ["bras", "jambe", "yeux"]
     nomDePirate = ["Bonny", "Jack", "Teach", "Collaart", "Morgan", "Nau", "Read", "Riskinner", "Oxenham", "Compaan", "Cavendish", "Mainwaring", "Essex", "Morris", "Braziliano", "Sawkins", "Anstis", "Culliford", "Henríquez", "Neumann"]
     prenomDePirate = ["William", "Calico", "Edward", "John", "Henry", "Jean", "Mary", "James", "Isaac", "Jan", "Vincenzo", "Jacquotte", "Cornelius", "George", "Thomas", "Lars", "Miguel", "Edward", "Christopher", "Mary", "Flora"]
@@ -126,8 +134,7 @@ if __name__ == "__main__":
     visiterTaverne()
     visiterTaverne()
     #nautilus.equipage.afficheMarins()
-
-
+    print "Maintenant, nous partons à l'aventure"
 
     # Fonction qui propose les destinations et retourne la position choisie
     def proposeDestination():
@@ -153,16 +160,23 @@ if __name__ == "__main__":
         print "\n================================> PROCHAIN PORT <=================================="
         portDeDestination = proposeDestination()
         print "Vous avez décidé de vous rendre a " + portDeDestination["port"] + ", le trajet est estime a " + str((int(portDeDestination["distance"])*100)*0.53) + " milles marins, vous depensez " + str(portDeDestination["cout"]) + " pieces!"
-        nautilus.depense(portDeDestination["cout"])
+        nautilus.depense(10000)
+        #nautilus.depense(portDeDestination["cout"])
 
-        action(nautilus)
-        Carte.supprimerRoutes()
-        Carte.creationRoute(portDeDestination["port"])
-        Carte.positionneBateau(portDeDestination["port"])
+        effectueTraverse(nautilus, portDeDestination["port"])
+        if nautilus.argent < 0:
+            print "Vous n'avez plus d'argent.."
+            #TODO message plus d'argent
+            break
 
-        print "\n \/\/\/\/\/\/     Bienvenue à" , portDeDestination["port"], "    \/\/\/\/\/\/ "
+        print "\n \/\/\/\/\/\/     Bienvenue à" , nautilus.portActuel,"    \/\/\/\/\/\/ "
         choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
         if choixVisite == "y":
             visiterTaverne()
 
-    print "On est arrivé à bon port"
+    if nautilus.portActuel == "Istanbul":
+        print "On est arrivé à bon port"
+        #TODO Ecrire texte arrivée
+
+    else:
+        print "Perdu"
