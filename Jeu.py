@@ -180,3 +180,10 @@ if __name__ == "__main__":
 
     else:
         print "Perdu"
+
+
+
+# Ajout sirene
+# Ajout avarie
+# Extraire Capitaine d'équipage
+# Ajouter magicienne à taverne
