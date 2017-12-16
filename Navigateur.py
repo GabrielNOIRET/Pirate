@@ -40,7 +40,8 @@ class Navigateur(object):
         if self.tete == 0 or self.nbYeux == 0:
             self.vivant = False
 
-        print self.nom
+    def afficheBlesse(self):
+        print "- " + self.nom + " -"
         print "Tete: " + str(self.tete)
         print "Jambes: " + str(self.nbJambes)
         print "Bras: " + str(self.nbBras)

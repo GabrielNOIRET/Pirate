@@ -25,15 +25,15 @@ class Navire(object):
     def depense(self, montant):
         argentAvantDepense = self.argent
         self.argent -= montant
-        message = "Le " + self.nom + " depense " + str(montant) + " pieces !"
-        message += "\nIl en avait " + str(argentAvantDepense) + ", il reste " + str(self.argent) + "."
+        message = "Le " + self.nom + " dépense " + str(montant) + " pièces !"
+        message += "\t(Butin précédent: " + str(argentAvantDepense) + ", Butin actuel: " + str(self.argent) + ")"
         print message
 
     def gagne(self, montant):
         argentAvantGain = self.argent
         self.argent += montant
         message = "Le " + self.nom + " gagne " + str(montant) + " pieces !"
-        message += "\nIl en avait " + str(argentAvantGain) + ", il reste " + str(self.argent) + "."
+        message += "\t(Butin précédent: " + str(argentAvantGain) + ", Butin actuel: " + str(self.argent) + ")"
         print message
 
     # Fonction qui propose et met à jour l'emplacement du bateau et de la dernière route

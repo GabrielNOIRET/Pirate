@@ -25,7 +25,7 @@ def trouveDestinationsProches():
         destination = {
             "port": row[0],
             "distance": row[1],
-            "cout": int(row[1] * 10)
+            "cout": int(row[1] * 20)
         }
         destinations.append(destination)
 

@@ -28,20 +28,27 @@ class Equipage(object):
 
     # Fonction qui actualise la liste des marins aprés un évènement (combat ou tempête)
     def endommage(self):
-        print "avant: " + str(len(self.listeMarins))
+
         listeMarinsVivants = []
         for marin in self.listeMarins:
             marin.blesse()
-            print "...."
+
 
             # Condition si les marins sont toujours vivants
             if marin.vivant == True:
                 listeMarinsVivants.append(marin)
 
         # Remplacement de la liste des marins avec la liste des marins toujours vivants
+
+        affichePerte = raw_input("Vous avez subit des pertes. Voulez vous voir ? (y/n)")
+        if affichePerte == "y":
+            print "- Nombre de marins avant: " + str(len(self.listeMarins))
+            print "- Nombre de marins après: " + str(len(listeMarinsVivants)) + "\n"
+            for marin in self.listeMarins:
+                marin.afficheBlesse()
+                print "...."
+            print "------"
         self.listeMarins = listeMarinsVivants
-        print "apres: " + str(len(self.listeMarins))
-        print "------"
 
 
 

@@ -14,7 +14,7 @@ class Taverne(object):
 
     # Fonction permettant de créer des pirates en leur associant un nom prénom, une force et un prix
     def debaucher(self):
-        prixdupirate = random.randint(50, 500) #Attribution d'un prix aléatoire
+        prixdupirate = random.randint(50, 300) #Attribution d'un prix aléatoire
         force = prixdupirate * 1.5 #Attribution d'une force en fonction du prix
         # Création du nomPrenom du prirate avec un jointure d'un prenom et d'un nom choisis aléatoirements dans deux listes
         nomPrenom = " ".join([self.listDePrenoms[random.randint(0, len(self.listDePrenoms) - 1)],
