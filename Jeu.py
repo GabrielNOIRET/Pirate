@@ -155,7 +155,7 @@ def visiteTaverne():
         nautilus.depense(taverneAPirate.depenseVisiteur)
 
     elif taverneAPirate.depenseVisiteur < 0:
-        nautilus.gagne(taverneAPirate.depenseVisiteur)
+        nautilus.gagne(-taverneAPirate.depenseVisiteur)
 
     # Ensuite, on utilise taverneAPirate.panierMarins pour ajouter les marins à l'équipage du nautilus, si besoin
     if len(taverneAPirate.panierMarins) > 0:

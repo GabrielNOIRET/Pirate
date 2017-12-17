@@ -118,12 +118,12 @@ class Taverne(object):
         self.depenseVisiteur -= resultat
 
         if resultat < 0:
-            print "Le Parieur a été plus fort, vous perdez " + str(resultat) + "pieces."
-            print "Il vous reste " + str(self.argentVisiteur) + "pieces."
+            print "Le Parieur a été plus fort, vous perdez " + str(resultat) + " pieces."
+            print "Il vous reste " + str(self.argentVisiteur) + " pieces."
 
         elif resultat > 0:
-            print "Vous avez battu Le Parieur, vous gagnez " + str(resultat) + "pieces."
-            print "Vous avez maintenant " + str(self.argentVisiteur) + "pieces."
+            print "Vous avez battu Le Parieur, vous gagnez " + str(resultat) + " pieces."
+            print "Vous avez maintenant " + str(self.argentVisiteur) + " pieces."
 
         else:
             print "Vous avez joué, ni gagné, ni perdu."
