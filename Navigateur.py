@@ -24,7 +24,7 @@ class Navigateur(object):
         if random.randint(0, 10) < 2:
             self.tete = 0
 
-        # Condition sur l'ordre de pertes des membres
+        # Condition sur l'ordre des pertes des membres
         else:
 
             if self.nbJambes > 0:
@@ -42,7 +42,7 @@ class Navigateur(object):
 
     def afficheBlesse(self):
         print "- " + self.nom + " -"
-        print "Tete: " + str(self.tete)
+        print "Tête: " + str(self.tete)
         print "Jambes: " + str(self.nbJambes)
         print "Bras: " + str(self.nbBras)
         print "Yeux: " + str(self.nbYeux)

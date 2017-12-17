@@ -90,9 +90,9 @@ def tempete():
 
 # Fonction qui simule une avarie: retourne le port de depart
 def avarie():
-    obstacle = random.choice(('un eceuil', 'une baleine', 'un bateau de pecheurs'))
+    obstacle = random.choice(('un écueil', 'une baleine', 'un bateau de pêcheurs'))
     print "~~~~~    A peine parti, le navire percute " + obstacle + "!   ~~~~"
-    print "Vous devez rentrer au port pour effectuer des reparations"
+    print "Vous devez rentrer au port pour effectuer des réparations"
     return nautilus.portActuel
 
 # Fonction qui propose la dernière enigme du jeu lorsqu'on est à Istanbul
@@ -119,10 +119,10 @@ def tresor ():
 def proposeDestination():
     destinationsPossible = Carte.trouveDestinationsProches()
 
-    message = "Quel est le prochain port de destination ? (il vous reste " + str(nautilus.argent) + " pieces):"
+    message = "Quel est le prochain port de destination ? (il vous reste " + str(nautilus.argent) + " pièces):"
 
     for index, destination in enumerate(destinationsPossible):
-        message += "\n" + str(index + 1) + ". " + destination["port"] + "\t(" + str(destination["cout"]) + " pieces)"
+        message += "\n" + str(index + 1) + ". " + destination["port"] + "\t(" + str(destination["cout"]) + " pièces)"
 
     # L'utilisateur doit saisir un nombre entre 1 et 3
     choix = raw_input(message)
@@ -134,7 +134,7 @@ def proposeDestination():
 
     print "Vous avez décidé de vous rendre à " + destinationChoisie["port"]
     print "Le trajet est estimé à " + str(distanceEnMillesMarins) + " milles marins"
-    print "Le cout du trajet sera de " + str(destinationChoisie["cout"]) + " pieces!"
+    print "Le coût du trajet sera de " + str(destinationChoisie["cout"]) + " pièces!"
 
     return destinationChoisie
 

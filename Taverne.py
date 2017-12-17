@@ -103,7 +103,7 @@ class Taverne(object):
                 self.depenseVisiteur += pirateChoisi.prix
 
             print "Vous avez acheté "+str(len(self.panierMarins)) + " pirate(s)!"
-            print "Il vous reste " + str(self.argentVisiteur) + " pieces!"
+            print "Il vous reste " + str(self.argentVisiteur) + " pièces!"
 
             choix = raw_input("Voulez-vous acheter un autre pirate ? (y/n)")
             while choix not in ['y', 'n']:
@@ -119,12 +119,12 @@ class Taverne(object):
         self.depenseVisiteur -= resultat
 
         if resultat < 0:
-            print "Le Parieur a été plus fort, vous perdez " + str(resultat) + " pieces."
-            print "Il vous reste " + str(self.argentVisiteur) + " pieces."
+            print "Le Parieur a été plus fort, vous perdez " + str(resultat) + " pièces."
+            print "Il vous reste " + str(self.argentVisiteur) + " pièces."
 
         elif resultat > 0:
-            print "Vous avez battu Le Parieur, vous gagnez " + str(resultat) + " pieces."
-            print "Vous avez maintenant " + str(self.argentVisiteur) + " pieces."
+            print "Vous avez battu Le Parieur, vous gagnez " + str(resultat) + " pièces."
+            print "Vous avez maintenant " + str(self.argentVisiteur) + " pièces."
 
         else:
             print "Vous avez joué, ni gagné, ni perdu."
