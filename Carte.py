@@ -31,7 +31,7 @@ def trouveDestinationsProches():
 
     return destinations
 
-def portDeTempete():
+def trouvePortAssezLoin():
     requete = """SELECT "City", ST_Distance(geom, (SELECT geom FROM exo2016.bateaux WHERE nom = 'Nautilus')) AS distance FROM exo2016.ports ORDER BY distance ASC LIMIT 1 OFFSET 10;"""
     cur.execute(requete)
     rows = cur.fetchall()

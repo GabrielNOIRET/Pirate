@@ -6,11 +6,12 @@ import Carte
 # Création de la classe Navire
 class Navire(object):
     # Définition du constructeur
-    def __init__(self, n, a, pd, listeMarins):
-        self.nom = n
-        self.argent = a
-        self.portDepart = pd
-        self.equipage = E.Equipage(listeMarins)
+    def __init__(self, nom, argent, capitaine):
+        self.nom = nom
+        self.argent = argent
+        self.capitaine = capitaine
+        # self.portDepart = pd
+        self.equipage = E.Equipage([])
 
     # Fonction qui initialise la position du bateau (dans le port de Rabat)
     def initPosition(self):
