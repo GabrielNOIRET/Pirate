@@ -10,23 +10,24 @@ from Taverne import Taverne
 
 
 # Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Avarie, Pas d'évènement)
-def effectueTraverse(navire, destination):
+def effectueTraverse(destination):
     numAction = random.randint(0, 10)
     # numAction = 4
     print 'numAction:', numAction
 
     if numAction in (0, 1, 2):
-        combat(navire)
+        combat()
 
     elif numAction == 3:
-        sirene(navire)
+        sirene()
 
     elif numAction in (4, 5):
-        destination = tempete(navire)
+        destination = tempete()
 
     elif numAction == 6:
-        destination = avarie(navire)
+        destination = avarie()
 
+    #Changement de la position du bateau et mise à jour des routes
     Carte.supprimerRoutes()
     Carte.creationRoute(destination)
     nautilus.actualisePosition(destination)
@@ -52,8 +53,8 @@ def combat():
     choixCombat = raw_input("Voulez-vous combattre ? (y/n)")
     if choixCombat == "y":
 
+        # Condition pour voir si la chance de gagner et le nombre aléatoire est inférieur
         if random.randint(0,100) > chanceEnnemi:
-        #if True:
             butin = random.randint(10, 200)
             print "Gagné !!!"
             nautilus.gagne(butin)
@@ -61,7 +62,6 @@ def combat():
         # Couper des membres!
             nautilus.equipage.endommage()
             print "Après un combat acharné, continuons notre périble..."
-
 
         else:
             print "Perdu..."
@@ -84,10 +84,7 @@ def sirene():
 def tempete():
     print "~~~~~    Il y a une tempête    ~~~~"
     portDeTempete = Carte.trouvePortAssezLoin()
-    #Carte.supprimerRoutes()
-    #Carte.positionneBateau(portDeTempete)
     nautilus.equipage.endommage()
-    #TODO  changer texte
     print "Le navire dérive et se retrouve à ", portDeTempete
     return portDeTempete
 
@@ -98,6 +95,7 @@ def avarie():
     print "Vous devez rentrer au port pour effectuer des reparations"
     return nautilus.portActuel
 
+# Fonction qui propose la dernière enigme du jeu lorsqu'on est à Istanbul
 def tresor ():
     message = "BRAVO ! Te voilà arrivé Istambul !! \nTu es à deux doigts du but. Pour récupérer le trésor de Carthégius qui se trouve dans le temple d’Ephesus tu vas devoir passer par le gardien du Temple pour te guider. "
     message += "\n \nLe gardien : « Bonjour Moussaillon, on m’a dit que tu étais intéressé par le trésor. Je veux bien t’y emmener mais pour cela il faut que tu répondes à mon énigme ! "
@@ -105,6 +103,7 @@ def tresor ():
     message += "\n« 5 marins sont venus avant toi, le premier et le second avait chacun une pièces d’or, le troisième avait 2 pièces, le quatrième 3 et le cinquième en avait 5. \nEt toi combien me proposes-tu de pièces ? »"
     reponse = raw_input(message)
 
+    # L'utilisateur à 3 tentatives pour répondre à l'énigme
     tentative = 1
     while reponse != "8":
         if tentative < 3:
@@ -125,6 +124,7 @@ def proposeDestination():
     for index, destination in enumerate(destinationsPossible):
         message += "\n" + str(index + 1) + ". " + destination["port"] + "\t(" + str(destination["cout"]) + " pieces)"
 
+    # L'utilisateur doit saisir un nombre entre 1 et 3
     choix = raw_input(message)
     while choix not in ("1", "2", "3"):
         choix = raw_input("Choix incorrect, tapez 1, 2 ou 3 :")
@@ -138,6 +138,7 @@ def proposeDestination():
 
     return destinationChoisie
 
+# Fonction qui permet d'acquérir (gratuitement) 3 marins avant le départ
 def achetePiratesDeDepart():
     print "A toi de composer ton équipage.\nVoici 10 pirates prêts à partir, tu dois en acheter 3 avant le départ."
     taverneDeDepart = Taverne()
@@ -146,11 +147,13 @@ def achetePiratesDeDepart():
     choixPiratesDeDepart = []
     totalDepense = 0
 
+    # Impression des pirates à choisirs
     for index, pirate in enumerate(piratesDeDepart):
         numeroChoix = str(index + 1)
         print numeroChoix + ".", pirate.nom + "\t\t(prix: " + str(pirate.prix) + " force: " + str(pirate.force) + ")"
         choixPossibles.append(numeroChoix)
 
+    # Demande à l'utilisateur de saisir un pirate
     for nb in range(3):
         choixPirate = raw_input("Quel pirate voulez-vous ? (" + str(3 - len(choixPiratesDeDepart)) + " restants)")
         while choixPirate not in choixPossibles or choixPirate in choixPiratesDeDepart:
@@ -170,7 +173,9 @@ def achetePiratesDeDepart():
 
     nautilus.equipage.afficheMarins()
 
+# Fonction qui visite une taverne
 def visiteTaverne():
+    #Gestion de l'argent au debut de la taverne
     taverneAPirate = Taverne()
     taverneAPirate.visite(nautilus.argent)
 
@@ -191,23 +196,25 @@ def visiteTaverne():
 
 
 if __name__ == "__main__":
-
+    #Impréssion du message de début de jeu
     messageDebut = "Bien le bonjour à toi jeune Corsaire, \n"
     messageDebut += "J’espère que tu es en pleine forme car à partir de maintenant tu vas devoir faire tes preuves !!  \n"
     messageDebut += "Tu es ici pour prendre connaissances de ta mission. Tu dois te rendre à Istambul pour dérober le trésor de Carthégius. \n"
     messageDebut += "C’est ici à Rabat que tout va commencer. \nPour débuter, commence par choisir le nom de ton capitaine :"
 
+    #Création du capitaine
     nomCapitaine = raw_input(messageDebut)
     capitaine = Navigateur(nomCapitaine, 10, 12)
 
     nautilus = Navire("Nautilus", 1000, capitaine)
     nautilus.initPosition("Rabat")
 
+    #Exécution de la fonction permettant d'acquérir 3 marins au début du jeu
     achetePiratesDeDepart()
 
     print "Maintenant, nous partons à l'aventure"
 
-
+    # Exécution lorsque le bateau n'est pas encore à Istanbul
     while nautilus.portActuel != "Istanbul":
         print "\n================================> PROCHAIN PORT <=================================="
         portDeDestination = proposeDestination()
@@ -217,7 +224,8 @@ if __name__ == "__main__":
         if nautilus.argent < 0:
             break
 
-        effectueTraverse(nautilus, portDeDestination["port"])
+        #Exécution d'un évenement (ou non ) durée la traversée
+        effectueTraverse(portDeDestination["port"])
 
         print "\n =======================>  BIENVENUE à " + nautilus.portActuel.upper() + "  <======================="
 
@@ -225,6 +233,7 @@ if __name__ == "__main__":
         if nautilus.portActuel == "Istanbul":
             break
 
+        # On demande si l'utilisateur veut visiter la taverne
         choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
         while choixVisite not in ['y', 'n']:
             choixVisite = raw_input("Choix incorrect!")
@@ -232,9 +241,11 @@ if __name__ == "__main__":
         if choixVisite == "y":
             visiteTaverne()
 
+    # Action lorsque le beateau arrive à Istanbul
     if nautilus.portActuel == "Istanbul":
         tresor()
 
+    # Action lorsqu'il n'y a plus d'argent aprés avoir chosie un port
     if nautilus.argent < 0:
         print "Vous avez une gestion des comptes lamentable, vos marins vous haissent, et malheureusement, l'aventure s'achève ici!" \
 
