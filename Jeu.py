@@ -146,34 +146,23 @@ def achetePiratesDeDepart():
     nautilus.equipage.afficheMarins()
 
 
-def visiterTaverne ():
-    print "Vous disposez de ",nautilus.argent,"pièces d'or"
+def visiteTaverne():
     taverneAPirate = T.Taverne()
-    listePirate = T.creationListePirateAChoisir(taverneAPirate, 3)
+    taverneAPirate.visite(nautilus.argent)
 
-    print "Voici les pirates disponibles : "
-    for index, pirate in enumerate(listePirate):
-        print index + 1, "-", pirate.nom, "(prix: ", pirate.prix, " force: ", pirate.force,")"
+    # Après la visite, on utilise taverneAPirate.depenseVisiteur pour mettre a jour l'argent du nautilus
+    if taverneAPirate.depenseVisiteur > 0:
+        nautilus.depense(taverneAPirate.depenseVisiteur)
 
-    def selectionAchatPirate():
-        choixPirate = raw_input("Quel pirate voulez-vous ?(Tapez q pour sortir de la taverne)")
-        while choixPirate not in ("1", "2", "3", "q"):
-            choixPirate = raw_input("Choix incorrect, tapez 1, 2 ou 3 :")
+    elif taverneAPirate.depenseVisiteur < 0:
+        nautilus.gagne(taverneAPirate.depenseVisiteur)
 
-        if choixPirate in ("1", "2", "3"):
+    # Ensuite, on utilise taverneAPirate.panierMarins pour ajouter les marins à l'équipage du nautilus, si besoin
+    if len(taverneAPirate.panierMarins) > 0:
+        for marin in taverneAPirate.panierMarins:
+            nautilus.equipage.ajoutMarin(marin)
 
-            pirateChoisi = listePirate[int(choixPirate) - 1]
-            if nautilus.argent - pirateChoisi.prix < 0:
-                print "Ce pirate est trop cher pour vous !"
-                selectionAchatPirate()
-            else:
-                nautilus.argent -= pirateChoisi.prix
-                nautilus.equipage.ajoutMarin(pirateChoisi)
-                nautilus.equipage.afficheMarins()
-        elif (choixPirate == "q"):
-            print "On quitte la taverne"
-
-    selectionAchatPirate()
+        nautilus.equipage.afficheMarins()
 
 
 
@@ -192,13 +181,12 @@ if __name__ == "__main__":
     print "Maintenant, nous partons à l'aventure"
 
 
-    '''
-
     nautilus.initPosition()
     while nautilus.portActuel != "Istanbul":
         print "\n================================> PROCHAIN PORT <=================================="
         portDeDestination = proposeDestination()
         print "Vous avez décidé de vous rendre a " + portDeDestination["port"] + ", le trajet est estime a " + str((int(portDeDestination["distance"])*100)*0.53) + " milles marins, vous depensez " + str(portDeDestination["cout"]) + " pieces!"
+
         nautilus.depense(10000)
         #nautilus.depense(portDeDestination["cout"])
 
@@ -210,8 +198,10 @@ if __name__ == "__main__":
 
         print "\n \/\/\/\/\/\/     Bienvenue à" , nautilus.portActuel,"    \/\/\/\/\/\/ "
         choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
+        while choixVisite not in ['y', 'n']:
+            choixVisite = raw_input("Choix incorrect!")
         if choixVisite == "y":
-            visiterTaverne()
+            visiteTaverne()
 
     if nautilus.portActuel == "Istanbul":
         print "On est arrivé à bon port"
@@ -219,10 +209,3 @@ if __name__ == "__main__":
 
     else:
         print "Perdu"
-
-    '''
-
-# Ajout sirene
-# Ajout avarie
-# Extraire Capitaine d'équipage
-# Ajouter magicienne à taverne
