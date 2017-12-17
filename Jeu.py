@@ -11,7 +11,7 @@ import random
 # Fonction qui aléatoirement choisi un évènement (Combat, Sirène, Tempête, Pas d'évènement)
 def effectueTraverse(navire, destination):
     numAction = random.randint(0, 10)
-    numAction = 4
+    #numAction = 4
 
     if numAction < 3:
         combat(navire)
@@ -25,7 +25,6 @@ def effectueTraverse(navire, destination):
     Carte.supprimerRoutes()
     Carte.creationRoute(destination)
     nautilus.actualisePosition(destination)
-
 
 # Fonction qui fait un combat
 def combat(navire):
@@ -66,8 +65,6 @@ def combat(navire):
     else:
         print "Froussard, on continue la route !"
 
-
-
 def tempete (navire):
     print "~~~~~    Il y a une tempête    ~~~~"
     portDeTempete = Carte.portDeTempete()
@@ -75,8 +72,30 @@ def tempete (navire):
     #Carte.positionneBateau(portDeTempete)
     navire.equipage.endommage()
     #TODO  changer texte
-    print "Le navire derive et se retrouve à ", portDeTempete
+    print "Le navire dérive et se retrouve à ", portDeTempete
     return portDeTempete
+
+def tresor ():
+    message = "BRAVO ! Te voilà arrivé Istambul !! \nTu es à deux doigts du but. Pour récupérer le trésor de Carthégius qui se trouve dans le temple d’Ephesus tu vas devoir passer par le gardien du Temple pour te guider. "
+    message += "\n \nLe gardien : « Bonjour Moussaillon, on m’a dit que tu étais intéressé par le trésor. Je veux bien t’y emmener mais pour cela il faut que tu répondes à mon énigme ! "
+    message += "\nEs-tu prêt, tu as trois chances sinon la malédiction du trésor s’abattra sur toi. "
+    message += "\n« 5 marins sont venus avant toi, le premier et le second avait chacun une pièces d’or, le troisième avait 2 pièces, le quatrième 3 et le cinquième en avait 5. \nEt toi combien me proposes-tu de pièces ? »"
+    reponse = raw_input(message)
+
+    tentative = 1
+    while reponse != "8":
+        if tentative < 3:
+            reponse = raw_input("PFFF, Marin d’eaux douces ! Retente ta chance :")
+            tentative += 1
+        else:
+            print "Mon dieu la malédiction s’abat sur toi. \nMalheureusement l'aventure s'arrête ici pour toi! Ne sois pas déçu, tu as tout de même pu parcourir la Méditerranée, et ça n'a pas de prix!!   "
+            break
+    if reponse == "8":
+        print "Félicitation tu as regardé le code ! Je te laisse repartir avec le trésor. Bon vent mon capitaine !!!!!!!!!!!Nom capitaine!!!!!!!"
+        #todo mettre nom capitaine
+
+
+
 
 
 if __name__ == "__main__":
@@ -89,7 +108,7 @@ if __name__ == "__main__":
     nomCapitaine = raw_input(messageDebut)
     capitaine = N.Navigateur(nomCapitaine, 10, 12)
     debutListeMarins = [capitaine]
-    nautilus = B.Navire("Nautilus", 1000, "Rabat", debutListeMarins)
+    nautilus = B.Navire("Nautilus", 10000, "Rabat", debutListeMarins)
 
 
     #taverneAPirate = T.Taverne(nomDePirate, prenomDePirate)
@@ -160,8 +179,7 @@ if __name__ == "__main__":
         print "\n================================> PROCHAIN PORT <=================================="
         portDeDestination = proposeDestination()
         print "Vous avez décidé de vous rendre a " + portDeDestination["port"] + ", le trajet est estime a " + str((int(portDeDestination["distance"])*100)*0.53) + " milles marins, vous depensez " + str(portDeDestination["cout"]) + " pieces!"
-        nautilus.depense(10000)
-        #nautilus.depense(portDeDestination["cout"])
+        nautilus.depense(portDeDestination["cout"])
 
         effectueTraverse(nautilus, portDeDestination["port"])
         if nautilus.argent < 0:
@@ -170,16 +188,16 @@ if __name__ == "__main__":
             break
 
         print "\n \/\/\/\/\/\/     Bienvenue à" , nautilus.portActuel,"    \/\/\/\/\/\/ "
-        choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
-        if choixVisite == "y":
-            visiterTaverne()
+        if nautilus.portActuel == "Istanbul":
+            tresor()
+        else:
+            choixVisite = raw_input("Voulez-vous visiter la taverne du port ? (y/n)")
+            if choixVisite == "y":
+                visiterTaverne()
 
-    if nautilus.portActuel == "Istanbul":
-        print "On est arrivé à bon port"
-        #TODO Ecrire texte arrivée
 
-    else:
-        print "Perdu"
+
+
 
 
 
