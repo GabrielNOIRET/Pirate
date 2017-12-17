@@ -108,7 +108,7 @@ if __name__ == "__main__":
     nomCapitaine = raw_input(messageDebut)
     capitaine = N.Navigateur(nomCapitaine, 10, 12)
     debutListeMarins = [capitaine]
-    nautilus = B.Navire("Nautilus", 10000, "Rabat", debutListeMarins)
+    nautilus = B.Navire("Nautilus", 2000, "Rabat", debutListeMarins)
 
 
     #taverneAPirate = T.Taverne(nomDePirate, prenomDePirate)
@@ -162,7 +162,7 @@ if __name__ == "__main__":
         message = "Quel est le prochain port de destination ? :"
 
         for index, destination in enumerate(destinationsPossible):
-            message += "\n" + str(index + 1) + ". " + destination["port"] + "\t(" + str(
+            message += "\n" + str(index + 1) + ". " + destination["port"] + "\t\t(" + str(
                 destination["cout"]) + " pieces)"
 
         choix = raw_input(message)
