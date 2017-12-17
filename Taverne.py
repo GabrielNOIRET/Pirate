@@ -1,7 +1,8 @@
 # coding=utf-8
 # Importation des bibliothèques fichiers
 import random
-import Navigateur as N
+
+from Navigateur import Navigateur
 from Parieur import Parieur
 
 nomsDePirate = ("Bonny", "Jack", "Teach", "Collaart", "Morgan", "Nau", "Read", "Riskinner", "Oxenham", "Compaan",
@@ -24,7 +25,7 @@ def creePirate():
     # Création du nomPrenom du pirate avec un prénom et un nom choisi aléatoirement dans les tuples de noms et prénoms
     nomPrenom = random.choice(prenomsDePirate) + " " + random.choice(nomsDePirate)
 
-    return N.Navigateur(nomPrenom, prixDuPirate, forceDuPirate)
+    return Navigateur(nomPrenom, prixDuPirate, forceDuPirate)
 
 
 # Création de la classe Taverne
@@ -113,7 +114,7 @@ class Taverne(object):
 
 
     def jeuAvecParieur(self):
-        resultat = self.parieur.play()
+        resultat = self.parieur.joue()
         self.argentVisiteur += resultat
         self.depenseVisiteur -= resultat
 

@@ -24,9 +24,9 @@ class Parieur:
             self.cartes.append({'valeur': 13, 'desc': 'Roi de ' + famille})
         random.shuffle(self.cartes)
 
-    def play(self):
+    def joue(self):
         print "- - - - - - - - - - - - - - - - - - - - - -"
-        print "- - - - - PARIEUR TOUR - - - - - -"
+        print "- - - - - PARIEUR - - - - - -"
         print "- - - - - - - - - - - - - - - - - - - - - -"
         print "Je suis le Parieur et on va jouer a 'Plus Haut / Plus Bas'."
         print "J\'ai un paquet de {0} cartes\n".format(str(len(self.cartes)))
@@ -36,13 +36,13 @@ class Parieur:
             print "- - - - - - - - - - - - - - - - - -"
             print "Tour {0}/{1}".format(str(i), str(maxRound)), "\t------\tGain: {0} pieces".format(str(gain))
             print "- - - - - - - - - - - - - - - - - -\n"
-            gain += self.playRound()
+            gain += self.joueTour()
             if i < maxRound - 1:
                 raw_input("\nOn continue...\n")
 
         return gain
 
-    def playRound(self):
+    def joueTour(self):
         # prend la derniere carte du paquet (correspond au dessus du paquet)
         carteVisible = self.cartes[-1]
 
